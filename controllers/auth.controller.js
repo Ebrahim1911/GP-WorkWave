@@ -2,13 +2,13 @@ import User from "../models/user.model.js";
 import createError from "../utlis/createError.js";
 const register = async (req, res, next) => {
   const { username, email, password, country } = req.body;
+  console.log(req.body);
   try {
     const newUser = new User({
-      username,
-      email,
+      ...req.body,
       password,
-      country,
     });
+
     await newUser.save();
     res.status(201).json({ newUser });
   } catch (err) {
@@ -32,6 +32,7 @@ const sendToken = (user, statusCode, res) => {
   res.status(statusCode).json({
     success: true,
     data: {
+      user,
       token,
     },
   });

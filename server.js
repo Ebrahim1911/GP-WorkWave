@@ -1,5 +1,6 @@
 import exxpress from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import connectDb from "./db/connect.js";
 import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
@@ -9,12 +10,13 @@ import messageRoute from "./routes/message.route.js";
 import orderRoute from "./routes/order.route.js";
 import reviewRoute from "./routes/review.route.js";
 const app = exxpress();
+app.use(cors({ origin: "http://localhost:5120", credentials: true }));
 dotenv.config();
 app.use(exxpress.json());
 const PORT = process.env.PORT || 5120;
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
-app.use("/api/gig", gigRoute);
+app.use("/api/gigs", gigRoute);
 app.use("/api/conversation", conversationRoute);
 app.use("/api/message", messageRoute);
 app.use("/api/order", orderRoute);
@@ -24,11 +26,11 @@ app.use((err, req, res, next) => {
   const errorMessage = err.message || "Something went Wrong!";
   return res.status(errorStatus).json(errorMessage);
 });
-// app.all("*", (req, res, next) => {
-//   return res
-//     .status(404)
-//     .json({ status: "error", message: "This resource is not available" });
-// });
+app.all("*", (req, res, next) => {
+  return res
+    .status(404)
+    .json({ status: "error", message: "This resource is not available" });
+});
 app.listen(PORT, () => {
   connectDb();
   console.log(`Server Listen on PORT ${PORT} `);

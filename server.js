@@ -19,7 +19,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/gigs", gigRoute);
 app.use("/api/conversation", conversationRoute);
 app.use("/api/message", messageRoute);
-app.use("/api/order", orderRoute);
+app.use("/api/orders", orderRoute);
 app.use("/api/reviews", reviewRoute);
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

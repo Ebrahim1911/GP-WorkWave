@@ -20,7 +20,7 @@ app.use("/api/gigs", gigRoute);
 app.use("/api/conversation", conversationRoute);
 app.use("/api/message", messageRoute);
 app.use("/api/order", orderRoute);
-app.use("/api/review", reviewRoute);
+app.use("/api/reviews", reviewRoute);
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went Wrong!";

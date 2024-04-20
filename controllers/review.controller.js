@@ -49,32 +49,4 @@ const getReviews = async (req, res, next) => {
     return next(createError(500, "Review Can not be get"));
   }
 };
-const deleteReview = async (req, res, next) => {};
-// const deleteReview = async (req, res, next) => {
-//   try {
-//     const gigId = req.params.id;
-//     console.log(gigId)
-//     // Check if review exists
-//     const review = await Review.findById(gigId);
-//     if (!review) {
-//       return next(createError(404, "Review not found"));
-//     }
-//     console.log("reqUserId", req.userId);
-//     if (req.userId !== review.userId) {
-//       return next(createError(403, "Unauthorized to delete review"));
-//     }
-
-//     // Delete the review
-//     await Review.findByIdAndDelete(reviewId);
-
-//     // Update Gig model (assuming reviews affect gig rating)
-//     await Gig.findByIdAndUpdate(review.gigId, {
-//       $inc: { totalStars: -review.star, starNumber: -1 },
-//     });
-
-//     res.status(200).json({ message: "Review deleted successfully" });
-//   } catch (err) {
-//     next(createError(500, "Failed to delete review"));
-//   }
-// };
-export { createReview, getReviews, deleteReview };
+export { createReview, getReviews };

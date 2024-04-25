@@ -9,8 +9,11 @@ import conversationRoute from "./routes/conversation.route.js";
 import messageRoute from "./routes/message.route.js";
 import orderRoute from "./routes/order.route.js";
 import reviewRoute from "./routes/review.route.js";
+import caregoriesRoute from "./routes/cat.route.js";
 const app = exxpress();
-app.use(cors({ origin: "http://localhost:5120", credentials: true }));
+app.use(
+  cors({ origin: "https://workwave-vq08.onrender.com", credentials: true })
+);
 dotenv.config();
 app.use(exxpress.json());
 const PORT = process.env.PORT || 5120;
@@ -21,6 +24,7 @@ app.use("/api/conversation", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/reviews", reviewRoute);
+app.use("/api/categories", caregoriesRoute);
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went Wrong!";

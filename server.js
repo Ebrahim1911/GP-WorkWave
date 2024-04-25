@@ -11,9 +11,8 @@ import orderRoute from "./routes/order.route.js";
 import reviewRoute from "./routes/review.route.js";
 import caregoriesRoute from "./routes/cat.route.js";
 const app = exxpress();
-app.use(
-  cors({ origin: "https://workwave-vq08.onrender.com", credentials: true })
-);
+// app.use(cors({ origin: "https://workwave-vq08.onrender.com", credentials: true }));
+app.use(cors());
 dotenv.config();
 app.use(exxpress.json());
 const PORT = process.env.PORT || 5120;

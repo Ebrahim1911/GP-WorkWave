@@ -20,4 +20,13 @@ const getUser = async (req, res, next) => {
     },
   });
 };
-export { deleteUser, getUser };
+const geAllUsers = async (req, res, next) => {
+  const allUsers = await User.find();
+  res.status(200).json({
+    status: "SUCCESS",
+    data: {
+      allUsers,
+    },
+  });
+};
+export { deleteUser, getUser, geAllUsers };

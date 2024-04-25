@@ -38,4 +38,13 @@ const getOrders = async (req, res, next) => {
     next(err);
   }
 };
-export { createOrder, getOrders };
+const geAllOrders = async (req, res, next) => {
+  const allOrders = await Order.find();
+  res.status(200).json({
+    status: "SUCCESS",
+    data: {
+      allOrders,
+    },
+  });
+};
+export { createOrder, getOrders, geAllOrders };

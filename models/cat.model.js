@@ -18,6 +18,10 @@ const catSchema = new Schema(
       required: true,
       unique: true,
     },
+    imgURL: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

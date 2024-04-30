@@ -15,7 +15,7 @@ const createOrder = async (req, res, next) => {
       price,
     });
     await newOrder.save();
-    res.status(200).json("Ordee Created");
+    res.status(200).json("Order Created");
   } catch (err) {
     return next(createError(500, "Can not Continue this process"));
   }

@@ -9,7 +9,7 @@ const register = async (req, res, next) => {
     });
 
     await newUser.save();
-    res.status(201).json({ newUser });
+    res.status(201).json({ staus: "SUCESS", data: { newUser } });
   } catch (err) {
     handleValidationErrors(err, next);
   }

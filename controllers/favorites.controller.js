@@ -1,41 +1,25 @@
 import Favorite from "../models/favorites.model.js";
 import createError from "../utlis/createError.js";
-const postUserFavorites = async (req, res, next) => {
-  try {
-    const userId = req.userId;
-    const { favorite } = req.body;
-    let oldFavorite;
-    let user = await Favorite.findOne({ userId });
-    console.log(user);
-    if (!user) {
-      console.log("from new user");
-      const newFavorite = new Favorite({ userId, favorite });
-      await newFavorite.save();
-      res.status(201).json({
-        status: "SUCCESS",
-        data: {
-          newFavorite,
-          oldFavorite: null,
-        },
-      });
-    }
-    const updatedFavorite = await Favorite.findByIdAndUpdate(
-      userId,
-      { $push: { favorite: favorite } },
-      { new: true }
-    );
-    console.log("updated", updatedFavorite);
-    oldFavorite = user.favorite ? user.favorite[0] : null;
-    console.log(user.favorite);
-    res.status(200).json({
+import User from "../models/user.model.js";
+import Gig from "../models/gig.model.js";
+
+let postUserFavorites = async (req, res, next) => {
+  let { userId } = req;
+  let { gigId } = req.params;
+  if (userId) {
+    let user = await User.findById(userId);
+    const favoriteGig = await Gig.findById(gigId);
+    user.favorties.push(favoriteGig);
+
+    await user.save();
+    res.json({
       status: "SUCCESS",
       data: {
-        oldFavorite,
-        newFavorite: updatedFavorite,
+        favorties: user.favorties,
       },
     });
-  } catch (err) {
-    next(createError(500, "Favorite Can not be appended"));
+  } else {
+    res.json("Not Found");
   }
 };
 
@@ -50,4 +34,5 @@ const getUserFavorites = async (req, res, next) => {
     },
   });
 };
+
 export { postUserFavorites, getUserFavorites };

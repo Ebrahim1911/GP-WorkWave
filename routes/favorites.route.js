@@ -5,7 +5,7 @@ import {
 } from "../controllers/favorites.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 const router = express.Router();
-router.post("/", verifyToken, postUserFavorites);
+router.post("/:gigId", verifyToken, postUserFavorites);
 router.get("/", verifyToken, getUserFavorites);
 
 export default router;

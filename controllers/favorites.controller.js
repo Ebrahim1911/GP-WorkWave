@@ -25,14 +25,29 @@ let postUserFavorites = async (req, res, next) => {
 
 const getUserFavorites = async (req, res, next) => {
   const { userId } = req;
-  console.log(userId);
-  const userFavorites = await Favorite.find({ userId });
+  const user = await User.findById(userId);
   res.status(200).json({
     status: "SUCCESS",
     data: {
-      userFavorites,
+      userFavorites: user.favorties,
     },
   });
 };
 
-export { postUserFavorites, getUserFavorites };
+const deleteUserFavorites = async (req, res, next) => {
+  const { gigId } = req.params;
+  const { userId } = req;
+  const user = await User.findById(userId);
+
+  user.favorties = user.favorties.filter((item) => item._id != gigId);
+
+  await user.save();
+
+  res.status(200).json({
+    status: "SUCCESS",
+    data: {
+      userFavorites: user.favorties,
+    },
+  });
+};
+export { postUserFavorites, getUserFavorites, deleteUserFavorites };

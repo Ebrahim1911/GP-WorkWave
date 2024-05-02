@@ -12,7 +12,7 @@ import reviewRoute from "./routes/review.route.js";
 import caregoriesRoute from "./routes/cat.route.js";
 import favoritesRoute from "./routes/favorites.route.js";
 const app = express();
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
 dotenv.config();
 app.use(express.json());
 const PORT = process.env.PORT || 5120;
@@ -36,6 +36,7 @@ app.all("*", (req, res, next) => {
     .status(404)
     .json({ status: "error", message: "This resource is not available" });
 });
+
 app.listen(PORT, () => {
   connectDb();
   console.log(`Server Listen on PORT ${PORT} `);

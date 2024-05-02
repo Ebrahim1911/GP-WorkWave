@@ -12,7 +12,7 @@ import reviewRoute from "./routes/review.route.js";
 import caregoriesRoute from "./routes/cat.route.js";
 import favoritesRoute from "./routes/favorites.route.js";
 const app = express();
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 dotenv.config();
 app.use(express.json());
 const PORT = process.env.PORT || 5120;

@@ -13,6 +13,7 @@ import caregoriesRoute from "./routes/cat.route.js";
 import favoritesRoute from "./routes/favorites.route.js";
 const app = express();
 dotenv.config();
+app.use(cors());
 app.use(express.json());
 const PORT = process.env.PORT || 5120;
 app.use("/api/users", userRoute);
@@ -40,4 +41,3 @@ app.listen(PORT, () => {
   connectDb();
   console.log(`Server Listen on PORT ${PORT} `);
 });
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));

@@ -12,8 +12,13 @@ import reviewRoute from "./routes/review.route.js";
 import caregoriesRoute from "./routes/cat.route.js";
 import favoritesRoute from "./routes/favorites.route.js";
 const app = express();
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
 dotenv.config();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 const PORT = process.env.PORT || 5120;
 app.use("/api/users", userRoute);

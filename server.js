@@ -18,6 +18,7 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 dotenv.config();
+
 app.use(cors(corsOptions));
 app.use(express.json());
 const PORT = process.env.PORT || 5120;

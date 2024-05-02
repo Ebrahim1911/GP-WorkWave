@@ -1,7 +1,6 @@
 import createError from "../utlis/createError.js";
 import Review from "../models/review.model.js";
 import Gig from "../models/gig.model.js";
-
 const createReview = async (req, res, next) => {
   const { gigId, desc, star } = req.body;
   if (req.isSeller)
@@ -27,6 +26,10 @@ const createReview = async (req, res, next) => {
 
     const savedReview = await newReview.save();
 
+    const gig = await Gig.findById(gigId);
+
+    gig.reviews.push(savedReview);
+    await gig.save();
     await Gig.findByIdAndUpdate(req.body.gigId, {
       $inc: { totalStars: req.body.star, starNumber: 1 },
     });

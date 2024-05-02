@@ -18,9 +18,9 @@ const logIn = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
-    if (!user) return next(createError(404, "Invaild Email"));
+    if (!user) return next(createError(404, "Invaild Email or Password"));
     const isMatch = await user.matchPassword(password);
-    if (!isMatch) return next(createError(400, "Invaild Password"));
+    if (!isMatch) return next(createError(400, "Invaild Email or Password"));
     sendToken(user, 200, res);
   } catch (err) {
     return next(createError(500, "SOMETHING WENT WRONG!"));

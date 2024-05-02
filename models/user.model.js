@@ -41,6 +41,7 @@ const UserSchema = new Schema(
       default: false,
     },
     favorties: [],
+
   },
   {
     timestamps: true,

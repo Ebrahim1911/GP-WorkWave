@@ -14,7 +14,6 @@ const createReview = async (req, res, next) => {
     img: req.img,
     username: req.username,
   });
-
   try {
     const review = await Review.findOne({
       gigId: req.body.gigId,

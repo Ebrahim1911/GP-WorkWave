@@ -24,7 +24,7 @@ const ReviewSchema = new Schema(
       type: String,
       required: true,
     },
-    useename: {
+    username: {
       type: String,
       required: true,
     },

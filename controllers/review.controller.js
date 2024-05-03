@@ -36,7 +36,9 @@ const createReview = async (req, res, next) => {
     });
     res.status(201).send(savedReview);
   } catch (err) {
-    next(createError(500, "Review Can not be created"));
+    next(
+      createError(500, "Review Can not be created", "This is the error", err)
+    );
   }
 };
 

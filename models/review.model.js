@@ -5,34 +5,28 @@ const ReviewSchema = new Schema(
   {
     gigId: {
       type: String,
-      // required: true,
-      required: false,
+      required: true,
     },
     userId: {
       type: String,
-      // required: true,
-      required: false,
+      required: true,
     },
     star: {
       type: Number,
-      // required: true,
-      required: false,
+      required: true,
       enum: [1, 2, 3, 4, 5],
     },
     desc: {
       type: String,
-      // required: true,
-      required: false,
+      required: true,
     },
     img: {
       type: String,
-      // required: true,
-      required: false,
+      requied: true,
     },
     username: {
       type: String,
-      // required: true,
-      required: false,
+      required: true,
     },
   },
   {

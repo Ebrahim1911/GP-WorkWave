@@ -13,6 +13,7 @@ export const verifyToken = (req, res, next) => {
     if (err) return next(createError(403, "Token is Not Valid!"));
     req.userId = payload._id;
     req.isSeller = payload.isSeller;
+    req.img = payload.img;
     next();
   });
 };

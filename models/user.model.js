@@ -41,7 +41,6 @@ const UserSchema = new Schema(
       default: false,
     },
     favorties: [],
-
   },
   {
     timestamps: true,
@@ -67,7 +66,7 @@ UserSchema.methods.matchPassword = async function (password) {
 };
 UserSchema.methods.gitSingnedToken = function () {
   return JWT.sign(
-    { _id: this._id, isSeller: this.isSeller },
+    { _id: this._id, isSeller: this.isSeller, img: this.img },
     process.env.JWT_SECRET
   );
 };

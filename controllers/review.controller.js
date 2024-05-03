@@ -11,6 +11,7 @@ const createReview = async (req, res, next) => {
     gigId,
     desc,
     star,
+    img: req.img,
   });
 
   try {

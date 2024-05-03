@@ -8,7 +8,6 @@ const createGig = async (req, res, next) => {
     ...req.body,
     userId: req.userId,
   });
-  console.log("new gig------------->", newGig);
   try {
     const savedGig = await newGig.save();
     res.status(201).json(savedGig);

@@ -33,7 +33,8 @@ const GigSchema = new Schema(
     },
     cover: {
       type: String,
-      required: true,
+      // required: true,
+      required: false,
     },
     images: {
       type: [String],

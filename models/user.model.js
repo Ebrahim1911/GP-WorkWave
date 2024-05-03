@@ -66,7 +66,12 @@ UserSchema.methods.matchPassword = async function (password) {
 };
 UserSchema.methods.gitSingnedToken = function () {
   return JWT.sign(
-    { _id: this._id, isSeller: this.isSeller, img: this.img },
+    {
+      _id: this._id,
+      isSeller: this.isSeller,
+      img: this.img,
+      username: this.username,
+    },
     process.env.JWT_SECRET
   );
 };

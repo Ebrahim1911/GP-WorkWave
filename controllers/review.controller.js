@@ -12,6 +12,7 @@ const createReview = async (req, res, next) => {
     desc,
     star,
     img: req.img,
+    username: req.username,
   });
 
   try {

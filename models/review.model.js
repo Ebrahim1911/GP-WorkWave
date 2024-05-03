@@ -24,6 +24,10 @@ const ReviewSchema = new Schema(
       type: String,
       required: true,
     },
+    useename: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

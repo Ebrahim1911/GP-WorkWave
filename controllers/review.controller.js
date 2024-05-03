@@ -1,44 +1,84 @@
 import createError from "../utlis/createError.js";
 import Review from "../models/review.model.js";
 import Gig from "../models/gig.model.js";
+// const createReview = async (req, res, next) => {
+//   const { gigId, desc, star } = req.body;
+//   if (req.isSeller)
+//     return next(createError(403, "Sellers can't create a review!"));
+
+//   const newReview = new Review({
+//     userId: req.userId,
+//     gigId,
+//     desc,
+//     star,
+//     img: req.img,
+//     username: req.username,
+//   });
+//   try {
+//     const review = await Review.findOne({
+//       gigId: req.body.gigId,
+//       userId: req.userId,
+//     });
+
+//     if (review)
+//       return next(
+//         createError(403, "You have already created a review for this gig!")
+//       );
+
+//     const savedReview = await newReview.save();
+
+//     const gig = await Gig.findById(gigId);
+
+//     gig.reviews.push(savedReview);
+//     await gig.save();
+//     await Gig.findByIdAndUpdate(req.body.gigId, {
+//       $inc: { totalStars: req.body.star, starNumber: 1 },
+//     });
+//     res.status(201).send(savedReview);
+//   } catch (err) {
+//     next(
+//       createError(500, "Review Can not be created", "This is the error", err)
+//     );
+//   }
+// };
+
 const createReview = async (req, res, next) => {
   const { gigId, desc, star } = req.body;
   if (req.isSeller)
     return next(createError(403, "Sellers can't create a review!"));
 
-  const newReview = new Review({
-    userId: req.userId,
-    gigId,
-    desc,
-    star,
-    img: req.img,
-    username: req.username,
-  });
   try {
-    const review = await Review.findOne({
-      gigId: req.body.gigId,
-      userId: req.userId,
-    });
+    // Check if the user has already created a review for this gig
+    const review = await Review.findOne({ gigId, userId: req.userId });
+    if (review)
+      return next(
+        createError(403, "You have already created a review for this gig!")
+      );
 
-    // if (review)
-    //   return next(
-    //     createError(403, "You have already created a review for this gig!")
-    //   );
+    const newReview = new Review({
+      userId: req.userId,
+      gigId,
+      desc,
+      star,
+      img: req.img, // Ensure req.img is available
+      username: req.username,
+    });
 
     const savedReview = await newReview.save();
 
+    // Update gig with new review
     const gig = await Gig.findById(gigId);
-
     gig.reviews.push(savedReview);
     await gig.save();
-    await Gig.findByIdAndUpdate(req.body.gigId, {
-      $inc: { totalStars: req.body.star, starNumber: 1 },
+
+    // Update gig's star ratings
+    await Gig.findByIdAndUpdate(gigId, {
+      $inc: { totalStars: star, starNumber: 1 },
     });
+
     res.status(201).send(savedReview);
   } catch (err) {
-    next(
-      createError(500, "Review Can not be created", "This is the error", err)
-    );
+    next(createError(500, "Review Can not be created"));
   }
 };
 

@@ -9,11 +9,15 @@ const GigSchema = new Schema(
     },
     title: {
       type: String,
-      required: true,
+      required: [true, "Please Provide a title"],
+      minlength: [4, "Min-length must be at least 4"],
+      maxlength: [30, "Max-length must be less than 30"],
     },
     desc: {
       type: String,
-      required: true,
+      required: [true, "Please Provide a Description"],
+      minlength: [40, "Min-length must be at least 40"],
+      maxlength: [200, "Max-length must be less than 200"],
     },
     totalStars: {
       type: Number,
@@ -25,11 +29,11 @@ const GigSchema = new Schema(
     },
     cat: {
       type: String,
-      required: true,
+      required: [true, "Please Provide a Category"],
     },
     price: {
       type: Number,
-      required: true,
+      required: [true, "Please Provide a Price"],
     },
     cover: {
       type: String,
@@ -42,15 +46,19 @@ const GigSchema = new Schema(
     },
     shortTitle: {
       type: String,
-      required: true,
+      required: [true, "Please Provide a Short Title"],
+      minlength: [4, "Min-length must be at least 4"],
+      maxlength: [30, "Max-length must be less than 30"],
     },
     shortDesc: {
       type: String,
-      required: true,
+      required: [true, "Please Provide a Short Desc"],
+      minlength: [4, "Min-length must be at least 4"],
+      maxlength: [30, "Max-length must be less than 30"],
     },
     deliveryTime: {
       type: Number,
-      required: true,
+      required: [true, "Please Provide a delivery Time"],
     },
     revisionNumber: {
       type: Number,

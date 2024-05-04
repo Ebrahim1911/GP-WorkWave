@@ -12,7 +12,8 @@ const createGig = async (req, res, next) => {
     const savedGig = await newGig.save();
     res.status(201).json(savedGig);
   } catch (err) {
-    next(err);
+    console.log(err);
+    handleValidationErrors(err, next);
   }
 };
 const deleteGig = async (req, res, next) => {
@@ -56,6 +57,16 @@ const getGigs = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+const handleValidationErrors = function (err, next) {
+  if (!err || !err.errors) return next(createError(500, "invalid credentials"));
+  const validationErrors = {};
+  for (const field in err.errors) {
+    validationErrors[field] = err.errors[field].message;
+  }
+
+  return next(createError(400, { errors: validationErrors }));
 };
 
 export { createGig, deleteGig, getGig, getGigs };

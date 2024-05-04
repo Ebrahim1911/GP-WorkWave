@@ -22,16 +22,34 @@ const createReview = async (req, res, next) => {
       img: req.img,
       username: req.username,
     });
-
     const savedReview = await newReview.save();
 
     const gig = await Gig.findById(gigId);
-    gig.reviews.push(savedReview);
-    await gig.save();
+    // if (savedReview) {
+    //   console.log("before", gig.reviews.length);
+    //   gig.reviews.push(savedReview);
+    //   console.log("after", gig.reviews.length);
+    //   await gig.save();
+    // }
 
-    await Gig.findByIdAndUpdate(gigId, {
-      $inc: { totalStars: star, starNumber: 1 },
-    });
+    // await Gig.findByIdAndUpdate(gigId, {
+    //   $inc: { totalStars: star, starNumber: 1 },
+    // });
+
+    if (gig && savedReview) {
+      const updatedGig = await Gig.findOneAndUpdate(
+        { _id: gigId },
+        {
+          $push: { reviews: savedReview },
+          $inc: { totalStars: star, starNumber: 1 },
+        },
+        { new: true }
+      );
+
+      if (!updatedGig) {
+        throw createError(404, "Gig not found");
+      }
+    }
 
     res.status(201).send({
       state: "SUCCESS",

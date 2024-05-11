@@ -25,16 +25,6 @@ const createReview = async (req, res, next) => {
     const savedReview = await newReview.save();
 
     const gig = await Gig.findById(gigId);
-    // if (savedReview) {
-    //   console.log("before", gig.reviews.length);
-    //   gig.reviews.push(savedReview);
-    //   console.log("after", gig.reviews.length);
-    //   await gig.save();
-    // }
-
-    // await Gig.findByIdAndUpdate(gigId, {
-    //   $inc: { totalStars: star, starNumber: 1 },
-    // });
 
     if (gig && savedReview) {
       const updatedGig = await Gig.findOneAndUpdate(

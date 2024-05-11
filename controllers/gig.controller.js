@@ -1,4 +1,5 @@
 import Gig from "../models/gig.model.js";
+
 import createError from "../utlis/createError.js";
 const createGig = async (req, res, next) => {
   if (!req.isSeller)
@@ -7,6 +8,8 @@ const createGig = async (req, res, next) => {
   const newGig = new Gig({
     ...req.body,
     userId: req.userId,
+    ownerImg: req.img,
+    ownerName: req.username,
   });
   try {
     const savedGig = await newGig.save();

@@ -7,6 +7,14 @@ const GigSchema = new Schema(
       type: String,
       required: true,
     },
+    ownerImg: {
+      type: String,
+      required: true,
+    },
+    ownerName: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: [true, "Please Provide a title"],
@@ -37,12 +45,12 @@ const GigSchema = new Schema(
     },
     cover: {
       type: String,
-      // required: true,
-      required: false,
+      required: true,
     },
     images: {
       type: [String],
       required: false,
+      required: true,
     },
     shortTitle: {
       type: String,

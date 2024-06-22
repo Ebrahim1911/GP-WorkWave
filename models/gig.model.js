@@ -38,6 +38,7 @@ const GigSchema = new Schema(
     cat: {
       type: String,
       required: [true, "Please Provide a Category"],
+      default: "design",
     },
     price: {
       type: Number,

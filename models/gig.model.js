@@ -9,6 +9,7 @@ const GigSchema = new Schema(
     },
     ownerImg: {
       type: String,
+      required: true,
     },
     ownerName: {
       type: String,

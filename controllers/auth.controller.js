@@ -6,7 +6,7 @@ const register = async (req, res, next) => {
     const newUser = new User({
       ...req.body,
       // password,
-      isAdmin: false,
+      // isAdmin: false,
     });
 
     await newUser.save();

@@ -1,3 +1,4 @@
+import { compareSync } from "bcrypt";
 import Gig from "../models/gig.model.js";
 import Order from "../models/oder.model.js";
 import createError from "../utlis/createError.js";
@@ -27,7 +28,6 @@ const getOrders = async (req, res, next) => {
       ...(req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }),
       isCompleted: true,
     });
-
     res.status(200).json({
       state: "SUCCESS",
       data: {
@@ -38,6 +38,7 @@ const getOrders = async (req, res, next) => {
     next(err);
   }
 };
+
 const geAllOrders = async (req, res, next) => {
   const allOrders = await Order.find();
   res.status(200).json({

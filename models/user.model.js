@@ -75,6 +75,7 @@ UserSchema.methods.gitSingnedToken = function () {
       isSeller: this.isSeller,
       img: this.img,
       username: this.username,
+      isAdmin: this.isAdmin,
     },
     process.env.JWT_SECRET
   );

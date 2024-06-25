@@ -2,13 +2,13 @@ import User from "../models/user.model.js";
 import createError from "../utlis/createError.js";
 const deleteUser = async (req, res, next) => {
   const userId = req.params.id;
-  console.log("from delete", req.isAdmin);
   const user = await User.findById(userId);
-  if (req.userId !== userId.toString())
+  if (req.isAdmin == true || req.userId === userId.toString()) {
+    await User.findByIdAndDelete(userId);
+    res.status(200).json("deleted.");
+  } else if (req.userId !== userId.toString()) {
     return next(createError(403, "You can delete only Your account!"));
-
-  await User.findByIdAndDelete(userId);
-  res.status(200).json("deleted.");
+  }
 };
 const getUser = async (req, res, next) => {
   const userId = req.params.id;

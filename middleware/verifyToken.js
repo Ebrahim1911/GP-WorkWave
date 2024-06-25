@@ -16,6 +16,7 @@ export const verifyToken = (req, res, next) => {
     req.img = payload.img;
     req.username = payload.username;
     req.isAdmin = payload.isAdmin;
+
     next();
   });
 };

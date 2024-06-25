@@ -23,10 +23,12 @@ const deleteGig = async (req, res, next) => {
   try {
     const gigId = req.params.id;
     const gig = await Gig.findById(gigId);
-    if (gig.userId !== req.userId)
-      return next(createError(403, "You Can delete Only Your gig! "));
-    await Gig.findByIdAndDelete(req.params.id);
-    res.status(200).send("Gig has been deleted!");
+    if (req.isAdmin == true || req.userId === gig.userId.toString()) {
+      await Gig.findByIdAndDelete(req.params.id);
+      res.status(200).send("Gig has been deleted!");
+    } else if ((req.userId !== req.userId) === gig.userId.toString()) {
+      return next(createError(403, "You can delete only Your gigs!"));
+    }
   } catch (err) {
     next(err);
   }
@@ -61,7 +63,16 @@ const getGigs = async (req, res, next) => {
     next(err);
   }
 };
-
+const getSellerGigs = async (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  const isAdmin = req.isAdmin;
+  console.log(
+    "---------------------------------------------------------------------------------------------------------------->",
+    isAdmin
+  );
+  res.json("end");
+};
 const handleValidationErrors = function (err, next) {
   if (!err || !err.errors) return next(createError(500, "invalid credentials"));
   const validationErrors = {};
@@ -72,4 +83,4 @@ const handleValidationErrors = function (err, next) {
   return next(createError(400, { errors: validationErrors }));
 };
 
-export { createGig, deleteGig, getGig, getGigs };
+export { createGig, deleteGig, getGig, getGigs, getSellerGigs };

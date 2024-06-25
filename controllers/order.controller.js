@@ -48,4 +48,24 @@ const geAllOrders = async (req, res, next) => {
     },
   });
 };
-export { createOrder, getOrders, geAllOrders };
+
+const deleteOrder = async (req, res, next) => {
+  try {
+    const orderId = req.params.id;
+    console.log(orderId);
+    const order = await Order.findById(orderId);
+
+    if (req.isAdmin || req.userId == order.buyerId) {
+      await Order.findByIdAndDelete(orderId);
+      res.status(200).send("Order has been deleted!");
+    } else {
+      return next(
+        createError(403, "You are not authorized to delete this order!")
+      );
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export { createOrder, getOrders, geAllOrders, deleteOrder };

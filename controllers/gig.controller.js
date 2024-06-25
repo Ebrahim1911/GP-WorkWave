@@ -65,12 +65,8 @@ const getGigs = async (req, res, next) => {
 };
 const getSellerGigs = async (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
-  const isAdmin = req.isAdmin;
-  console.log(
-    "---------------------------------------------------------------------------------------------------------------->",
-    isAdmin
-  );
+  const { isSeller } = req;
+
   res.json("end");
 };
 const handleValidationErrors = function (err, next) {

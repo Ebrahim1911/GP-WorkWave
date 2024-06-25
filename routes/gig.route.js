@@ -14,6 +14,6 @@ router.post("/", verifyToken, createGig);
 router.delete("/delete/:id", verifyToken, deleteGig);
 router.get("/single/:id", getGig);
 router.get("/", getGigs);
-router.get("/:id", getSellerGigs);
+router.get("/:id", verifyToken, getSellerGigs);
 
 export default router;

@@ -25,7 +25,7 @@ const deleteGig = async (req, res, next) => {
     const gig = await Gig.findById(gigId);
     if (req.isAdmin == true || req.userId === gig.userId.toString()) {
       await Gig.findByIdAndDelete(req.params.id);
-      res.status(200).send("Gig has been deleted!");
+      res.status(200).json("Gig has been deleted!");
     } else if ((req.userId !== req.userId) === gig.userId.toString()) {
       return next(createError(403, "You can delete only Your gigs!"));
     }

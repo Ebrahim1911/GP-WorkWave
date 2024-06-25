@@ -64,10 +64,22 @@ const getGigs = async (req, res, next) => {
   }
 };
 const getSellerGigs = async (req, res, next) => {
-  const { id } = req.params;
-  const { isSeller } = req;
+  try {
+    const { id } = req.params;
+    const { userId } = req;
 
-  res.json("end");
+    if (id === userId) {
+      const gigs = await Gig.find({ userId });
+      res.status(200).json({
+        status: "SUCCESS",
+        data: {
+          gigs,
+        },
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
 };
 const handleValidationErrors = function (err, next) {
   if (!err || !err.errors) return next(createError(500, "invalid credentials"));

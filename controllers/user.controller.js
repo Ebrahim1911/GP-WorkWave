@@ -1,15 +1,19 @@
 import User from "../models/user.model.js";
+import Gigs from "../models/gig.model.js";
 import createError from "../utlis/createError.js";
+
 const deleteUser = async (req, res, next) => {
   const userId = req.params.id;
   const user = await User.findById(userId);
   if (req.isAdmin == true || req.userId === userId.toString()) {
     await User.findByIdAndDelete(userId);
+    await Gigs.deleteMany({ userId });
     res.status(200).json("deleted.");
   } else if (req.userId !== userId.toString()) {
     return next(createError(403, "You can delete only Your account!"));
   }
 };
+
 const getUser = async (req, res, next) => {
   const userId = req.params.id;
   const user = await User.findById(userId);

@@ -1,14 +1,12 @@
 import User from "../models/user.model.js";
 import createError from "../utlis/createError.js";
 const register = async (req, res, next) => {
-  const { username, email, password, country } = req.body;
   try {
     const newUser = new User({
       ...req.body,
       // password,
       // isAdmin: false,
     });
-
     await newUser.save();
     res.status(201).json({ staus: "SUCESS", data: { newUser } });
   } catch (err) {

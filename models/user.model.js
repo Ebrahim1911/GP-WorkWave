@@ -44,6 +44,7 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    skills: { type: [], default: false },
     favorties: [],
   },
   {

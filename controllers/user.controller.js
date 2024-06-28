@@ -34,4 +34,30 @@ const geAllUsers = async (req, res, next) => {
     },
   });
 };
-export { deleteUser, getUser, geAllUsers };
+
+const sendToken = (user, statusCode, res) => {
+  const token = user.gitSingnedToken();
+  res.status(statusCode).json({
+    success: true,
+    data: {
+      user,
+      token,
+    },
+  });
+};
+
+const changeUserRole = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return next(createError(404, "Invaild Email or Password"));
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) return next(createError(400, "Invaild Email or Password"));
+    user.isSeller = true;
+    await user.save();
+    sendToken(user, 200, res);
+  } catch (err) {
+    return next(createError(500, "SOMETHING WENT WRONG!"));
+  }
+};
+export { deleteUser, getUser, geAllUsers, changeUserRole };
